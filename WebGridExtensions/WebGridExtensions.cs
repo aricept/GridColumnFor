@@ -20,7 +20,7 @@ namespace WebGridExtensions
         /// <param name="style">The CSS class attribute that is rendered as part of the HTML table cells that are associated with the WebGrid column.</param>
         /// <param name="canSort">Indicates whether the column can be sorted.</param>
         /// <returns>Data column</returns>
-        public static WebGridColumn GridColumnFor<TModel, TValue>(this HtmlHelper<IEnumerable<TModel>> html, Expression<Func<TModel, TValue>> exp, Func<dynamic, object> format = null, string style = null, bool canSort = true)
+        public static WebGridColumn GridColumnFor<TModel, TValue>(this HtmlHelper<IEnumerable<TModel>> html, Expression<Func<TModel, TValue>> exp, string header = null, Func<dynamic, object> format = null, string style = null, bool canSort = true)
         {
             // ModelMetadata from which other info is determined.
             var metadata = ModelMetadata.FromLambdaExpression(exp, new ViewDataDictionary<TModel>());
@@ -37,7 +37,7 @@ namespace WebGridExtensions
             return new WebGridColumn()
             {
                 ColumnName = modelText,
-                Header = metadata.DisplayName ?? metadata.PropertyName ?? modelText.Split('.').Last(),
+                Header = header ?? metadata.DisplayName ?? metadata.PropertyName ?? modelText.Split('.').Last(),
                 Style = style,
                 CanSort = canSort,
                 Format = format
