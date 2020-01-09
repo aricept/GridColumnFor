@@ -31,7 +31,7 @@ namespace WebGridExtensions
             if (format == null && metadata.DisplayFormatString != null)
             {
                 // Apply DisplayFormatAttribute formatting.
-                format = (item) => string.Format(metadata.DisplayFormatString, item[modelText]);
+                format = (item) => string.Format(metadata.DisplayFormatString, item[modelText] ?? String.Empty);
             }
 
             return new WebGridColumn()
